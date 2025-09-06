@@ -1,1 +1,4 @@
 resourceVENV/
+.env
+__pycache__
+notebooks/
