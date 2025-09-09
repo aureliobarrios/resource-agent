@@ -27,5 +27,10 @@ with gr.Blocks() as demo:
     #build message textbox for chatbot
     msg = gr.Textbox(visible=False)
 
+    #build button row section
+    with gr.Row():
+        clear_button = gr.Button("Clear", interactive=False)
+        submit_button = gr.Button("Build Path", interactive=False)
+
 if __name__ == "__main__":
     demo.launch(show_error=True)
