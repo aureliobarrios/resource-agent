@@ -32,5 +32,17 @@ with gr.Blocks() as demo:
         clear_button = gr.Button("Clear", interactive=False)
         submit_button = gr.Button("Build Path", interactive=False)
 
+    # ---------- Functions ----------
+    
+    #function to receive user input
+    def user(build_type, topic, msg, history):
+        if build_type == "Learning Path":
+            #build chatbot message
+            message = f"Requested Learning Path For: {topic}"
+            return "", history + [{"role": "user", "content": message}]
+        else:
+            return "", history + [{"role": "user", "content": msg}]
+
+
 if __name__ == "__main__":
     demo.launch(show_error=True)
