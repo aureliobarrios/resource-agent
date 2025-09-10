@@ -51,6 +51,10 @@ with gr.Blocks() as demo:
         else:
             return "", history + [{"role": "user", "content": msg}]
 
+    #function to return bot output
+    def bot(history):
+        return history
+
 
 if __name__ == "__main__":
     demo.launch(show_error=True)
