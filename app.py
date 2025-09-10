@@ -4,6 +4,14 @@ import gradio as gr
 with gr.Blocks() as demo:
     # -------------------- Helper Functions --------------------
     
+    #function to calculate price
+    def get_request_price(input_tokens, output_tokens):
+        #price per input token
+        input_price = 2.5 / 1_000_000
+        #price per output token
+        output_price = 10 / 1_000_000
+        return (input_price * input_tokens) + (output_price * output_tokens)
+
     # ---------- Components ----------
 
     #add build type component
