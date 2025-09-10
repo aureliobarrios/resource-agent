@@ -54,6 +54,14 @@ with gr.Blocks() as demo:
     #function to return bot output
     def bot(history):
         return history
+    
+    def clear_handle(history):
+        #clear chatbot history
+        history = []
+        return history
+    
+    def build_layout(build_type):
+        return build_type
 
 
 if __name__ == "__main__":
