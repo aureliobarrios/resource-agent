@@ -61,7 +61,41 @@ with gr.Blocks() as demo:
         return history
     
     def build_layout(build_type):
-        return build_type
+        #change layout based on student selection
+        if build_type == "Learning Path":
+            #build topic textbox selection
+            topic = gr.Textbox(
+                label="What topic would you like you build your learning path for? i.e. Python, JavaScript, etc...",
+                placeholder="Insert your learning topic here",
+                interactive=True,
+                visible=True
+            )
+            #build difficulty level selection
+            difficulty = gr.Radio(
+                ["Beginner", "Intermediate", "Hard", "Advanced"],
+                value="Beginner",
+                label="What would you say your current expertise level on the subject is at?",
+                visible=True,
+                interactive=True
+            )
+            #build chatbot interface
+            chatbot = gr.Chatbot(type="messages")
+            #build textbot for message input
+            msg = gr.Textbox(visible=False)
+        else:
+            #build topic textbox selection
+            topic = gr.Textbox(visible=False, value='')
+            #build difficulty level selection
+            difficulty = gr.Radio(visible=False)
+            #build chatbot interface
+            chatbot = gr.Chatbot(type="messages")
+            #build textbox for message input
+            msg = gr.Textbox(
+                label="What question do you want to build a tutorial for?",
+                placeholder="Insert what you wish to learn here",
+                visible=True
+            )
+        return topic, difficulty, chatbot, msg
 
 
 if __name__ == "__main__":
