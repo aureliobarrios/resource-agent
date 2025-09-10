@@ -96,6 +96,9 @@ with gr.Blocks() as demo:
                 visible=True
             )
         return topic, difficulty, chatbot, msg
+    
+    def resource_selection(radio):
+        return radio
 
 
 if __name__ == "__main__":
