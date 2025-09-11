@@ -97,7 +97,23 @@ with gr.Blocks() as demo:
             )
         return topic, difficulty, chatbot, msg
     
-    def resource_selection(radio):
+    #build layout for resource type selection
+    def resource_selection(build_type, radio):
+        #build radio best on build type
+        if build_type == "Learning Path":
+            radio = gr.Radio(
+                ["Learning Path", "Videos"],
+                value="Learning Path",
+                label="What kind of resources would you like to receive?",
+                visible=True
+            )
+        else:
+            radio = gr.Radio(
+                ["Learning Path", "Videos"],
+                value="Learning Path",
+                label="What kind of resources would you like to receive?",
+                visible=True
+            )
         return radio
 
 
