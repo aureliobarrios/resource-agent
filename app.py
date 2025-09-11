@@ -115,6 +115,12 @@ with gr.Blocks() as demo:
                 visible=True
             )
         return radio
+    
+    #build layout for button functionality
+    def buttons(clear_button, submit_button):
+        clear_button = gr.Button("Clear", interactive=True)
+        submit_button = gr.Button("Build Path", interactive=True)
+        return clear_button, submit_button
 
 
 if __name__ == "__main__":
