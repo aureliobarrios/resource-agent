@@ -122,8 +122,19 @@ with gr.Blocks() as demo:
         submit_button = gr.Button("Build Path", interactive=True)
         return clear_button, submit_button
     
-    def check_input():
-        return "Test"
+    def check_input(build_type, topic, msg):
+        if build_type == "Learning Path":
+            #list possible learning paths
+            possible_topics = ["python", "javascript"]
+            #check to see if topic is note empty
+            if not topic.strip():
+                raise gr.Error("Make sure to include your topic!")
+            if topic.lower() not in possible_topics:
+                raise gr.Error("Did not recognize topic, make sure to include programming specific topics!")
+        else:
+            #check tutorial edge cases
+            if not msg.strip():
+                raise gr.Error("Make sure to input message!")
     
     def clear_all():
         return "Test"
