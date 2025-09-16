@@ -176,6 +176,13 @@ with gr.Blocks() as demo:
         buttons, [clear_button, submit_button], [clear_button, submit_button]
     )
 
+    #handle user click on clear button
+    clear_button.click(
+        clear_handle, chatbot, chatbot
+    ).then(
+        clear_all, None, [build_type, topic, difficulty, radio, chatbot, msg, clear_button, submit_button]
+    )
+
 
 if __name__ == "__main__":
     demo.launch(show_error=True)
