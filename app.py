@@ -165,6 +165,16 @@ with gr.Blocks() as demo:
             submit_button = gr.Button("Build Path", interactive=False)
 
         return build_type, topic, difficulty, radio, chatbot, msg, clear_button, submit_button
+    
+    # ---------- Actions ----------
+    #handle build type selection
+    build_type.select(
+        build_layout, build_type, [topic, difficulty, chatbot, msg]
+    ).then(
+        resource_selection, [build_type, radio], radio
+    ).then(
+        buttons, [clear_button, submit_button], [clear_button, submit_button]
+    )
 
 
 if __name__ == "__main__":
