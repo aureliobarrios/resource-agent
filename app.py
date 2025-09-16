@@ -183,6 +183,15 @@ with gr.Blocks() as demo:
         clear_all, None, [build_type, topic, difficulty, radio, chatbot, msg, clear_button, submit_button]
     )
 
+    #handle user click on submit button
+    submit_button.click(
+        check_input, [build_type, topic, msg], None
+    ).success(
+        user, [build_type, topic, msg, chatbot], [msg, chatbot]
+    ).then(
+        bot, [build_type, difficulty, radio, chatbot], chatbot
+    )
+
 
 if __name__ == "__main__":
     demo.launch(show_error=True)
