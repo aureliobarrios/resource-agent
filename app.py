@@ -201,6 +201,15 @@ with gr.Blocks() as demo:
         bot, [build_type, difficulty, radio, chatbot], chatbot
     )
 
+    #handle user submit
+    msg.submit(
+        check_input, [build_type, topic, msg], None
+    ).success(
+        user, [build_type, topic, msg, chatbot], [msg, chatbot]
+    ).then(
+        bot, [build_type, difficulty, radio, chatbot], chatbot
+    )
+
 
 if __name__ == "__main__":
     demo.launch(show_error=True)
