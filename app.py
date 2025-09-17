@@ -257,6 +257,15 @@ with gr.Blocks() as demo:
             except Exception as e:
                 print(e)
 
+            #update tokens used
+            INPUT_TOKENS = INPUT_TOKENS + response.usage.prompt_tokens
+            OUTPUT_TOKENS = OUTPUT_TOKENS + response.usage.completion_tokens
+
+            if response.choices[0].message.tool_calls:
+                print("succesfull tool call")
+            else:
+                print("You are here") 
+
         return history
     
     def clear_handle(history):
