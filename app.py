@@ -1,4 +1,6 @@
+import os
 import gradio as gr
+from dotenv import load_dotenv
 
 
 with gr.Blocks() as demo:
@@ -53,6 +55,19 @@ with gr.Blocks() as demo:
 
     #function to return bot output
     def bot(history):
+        #load in the environment
+        load_dotenv()
+        #used to calculate query price
+        INPUT_TOKENS = 0 #prompt tokens
+        OUTPUT_TOKENS = 0 #completion tokens
+        #load environment variables and build client
+        WEB_RESULTS = int(os.getenv("WEB_RESULTS"))
+        REDDIT_RESULTS = int(os.getenv("REDDIT_RESULTS"))
+        RESOURCES_NEEDED = int(os.getenv("RESOURCES_NEEDED"))
+        #set the sleep interval for our google search based on number of web results
+        SLEEP_INTERVAL = 0 if WEB_RESULTS < 100 else 5
+        GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
         return history
     
     def clear_handle(history):
