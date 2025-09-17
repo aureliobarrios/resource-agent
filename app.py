@@ -1,4 +1,5 @@
 import os
+import json
 import gradio as gr
 from groq import Groq
 from datetime import datetime
@@ -262,9 +263,21 @@ with gr.Blocks() as demo:
             OUTPUT_TOKENS = OUTPUT_TOKENS + response.usage.completion_tokens
 
             if response.choices[0].message.tool_calls:
-                print("succesfull tool call")
+                #get the arguments of the content
+                functio_args = json.loads(response.choices[0].message.tool_calls[0].function.arguments)
+                #run arguments to function
+                out_json = extract_learning_info(**functio_args)
+                print("Success! Succesfully loaded using tool_calls")
             else:
-                print("You are here") 
+                #get the content of our response
+                content = response.choices[0].message.content
+
+                #get start index of JSON file
+                start_index = min([i for i in [content.find("{"), content.find("[")] if i >= 0])
+                #get end index of JSON file
+                end_index = len(content) - min([i for i in [content[::-1].find("}"), content[::-1].find("]")] if i >= 0])
+                #get the entire JSON text
+                json_text = content[start_index:end_index]     
 
         return history
     
