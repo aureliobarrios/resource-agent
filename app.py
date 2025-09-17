@@ -127,6 +127,60 @@ with gr.Blocks() as demo:
         {learning_path_text}
         '''
 
+        #build tool configuration
+        tools  = [
+            {
+                "type": "function",
+                "function": {
+                    "name": "extract_learning_info",
+                    "description": "Extract information from given text and return as JSON object",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "beginner_description": {
+                                "type": "string",
+                                "description": "Description of what the student is learning in the beginner difficulty level"
+                            },
+                            "beginner_query": {
+                                "type": "string",
+                                "description": "The web query the student will use to gather resources for the beginner difficulty level"
+                            },
+                            "intermediate_description": {
+                                "type": "string",
+                                "description": "Description of what the student is learning in the intermediate difficulty level"
+                            },
+                            "intermediate_query": {
+                                "type": "string",
+                                "description": "The web query the student will use to gather resources for the intermediate difficulty level"
+                            },
+                            "hard_description": {
+                                "type": "string",
+                                "description": "Description of what the student is learning in the hard difficulty level"
+                            },
+                            "hard_query": {
+                                "type": "string",
+                                "description": "The web query the student will use to gather resources for the hard difficulty level"
+                            },
+                            "advanced_description": {
+                                "type": "string",
+                                "description": "Description of what the student is learning in the advanced difficulty level"
+                            },
+                            "advanced_query": {
+                                "type": "string",
+                                "description": "The web query the student will use to gather resources for the advanced difficulty level"
+                            },
+                        },
+                        "required": [
+                            "beginner_description", "beginner_query",
+                            "intermediate_description", "intermediate_query",
+                            "hard_description", "hard_query",
+                            "advanced_description", "advanced_query"
+                        ]
+                    }
+                }
+            }
+        ]
+
         return history
     
     def clear_handle(history):
