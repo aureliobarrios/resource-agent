@@ -1,5 +1,6 @@
 import os
 import gradio as gr
+from groq import Groq
 from dotenv import load_dotenv
 
 
@@ -67,6 +68,41 @@ with gr.Blocks() as demo:
         #set the sleep interval for our google search based on number of web results
         SLEEP_INTERVAL = 0 if WEB_RESULTS < 100 else 5
         GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+        client = Groq(
+            api_key=GROQ_API_KEY
+        )
+        #get previous user message
+        student_prompt = history[-1]["content"]
+        #handle input based on different selections
+        if build_type == "Learning Path":
+            #get the topic
+            topic = student_prompt.split(":")[1].lower()
+            #build student prompt
+            student_prompt = f"I want to learn {topic}"
+        #build prompt that will return context for learning path        
+        context_prompt = f'''
+        {student_prompt}
+
+        Can you build me a learning path to solve this problem that follows these 
+        levels: beginner, intermediate, hard, advanced.
+
+        For each of these levels give me a one sentence query that I can input into
+        my search engine that will return resources that will help me solve my problem.
+
+        Make sure to also include a one sentence description of what the current
+        difficulty level is teaching me.
+        '''
+        #build context for learning path
+        chat_completion = client.chat.completions.create(
+            messages = [
+                {
+                    "role": "user",
+                    "content": context_prompt
+                }
+            ],
+            model = "llama-3.1-8b-instant"
+        )
 
         return history
     
