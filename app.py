@@ -181,6 +181,27 @@ with gr.Blocks() as demo:
             }
         ]
 
+        #implement out_json edge case
+        out_json = None
+        #run process until we have an out_json or less than trials
+        while out_json is None:
+            print("Building out_json!")
+            try:
+                #call response
+                response = client.chat.completions.create(
+                    model = "llama-3.1-8b-instant",
+                    messages = [
+                        {
+                            "role": "user",
+                            "content": prompt
+                        }
+                    ],
+                    tools = tools,
+                    tool_choice = "auto"
+                )
+            except Exception as e:
+                print(e)
+
         return history
     
     def clear_handle(history):
