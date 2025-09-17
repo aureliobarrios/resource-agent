@@ -14,6 +14,31 @@ with gr.Blocks() as demo:
         #price per output token
         output_price = 10 / 1_000_000
         return (input_price * input_tokens) + (output_price * output_tokens)
+    
+    #function we intend to use for function calling
+    def extract_learning_info(beginner_description, beginner_query, 
+                            intermediate_description, intermediate_query, 
+                            hard_description, hard_query,
+                            advanced_description, advanced_query):
+        learning_info = {
+            "beginner": {
+                "description": beginner_description,
+                "query": beginner_query
+            },
+            "intermediate": {
+                "description": intermediate_description,
+                "query": intermediate_query
+            },
+            "hard": {
+                "description": hard_description,
+                "query": hard_query
+            },
+            "advanced": {
+                "description": advanced_description,
+                "query": advanced_query
+            }
+        }
+        return learning_info
 
     # ---------- Components ----------
 
