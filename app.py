@@ -104,6 +104,29 @@ with gr.Blocks() as demo:
             model = "llama-3.1-8b-instant"
         )
 
+        #update tokens used
+        INPUT_TOKENS = INPUT_TOKENS + chat_completion.usage.prompt_tokens
+        OUTPUT_TOKENS = OUTPUT_TOKENS + chat_completion.usage.completion_tokens
+        #get learning path context
+        learning_path_text = chat_completion.choices[0].message.content
+
+        #build current prompt
+        prompt = f'''
+        Please extract the following information from the given text and return it as a JSON object:
+
+        beginner_description
+        beginner_query
+        intermediate_description
+        intermediate_query
+        hard_description
+        hard_query
+        advanced_description
+        advanced_query
+
+        This is the body of text to extract the information from:
+        {learning_path_text}
+        '''
+
         return history
     
     def clear_handle(history):
