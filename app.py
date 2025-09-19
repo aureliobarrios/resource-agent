@@ -313,6 +313,13 @@ with gr.Blocks() as demo:
                                 brackets.append(char)
                             #increment index
                             char_index += 1
+                        
+                        #handle edge case where last missing bracket is at the end
+                        while brackets:
+                            json_text = json_text + inverse_map[brackets[0]]
+                            brackets = brackets[1:]
+                        #load text to json
+                        json_response = json.loads(json_text)
                     except Exception as e:
                         print("Failure! Could not load your file to JSON with error", e)  
 
