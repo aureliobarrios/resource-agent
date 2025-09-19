@@ -284,7 +284,20 @@ with gr.Blocks() as demo:
                     json_response = json.loads(json_text)
                 except Exception as e:
                     try:
-                        print("Success!")
+                        #list of brackets in string
+                        brackets = []
+                        #mapping of closed brackets to open
+                        bracket_map = {
+                            "}": "{",
+                            "]": "["
+                        }
+                        #inverse bracket map
+                        inverse_map = {v: k for k, v in bracket_map.items()}
+                        #save the character index
+                        char_index = 0
+                        #loop through every character in format string
+                        for char in json_text:
+                            print(char)
                     except Exception as e:
                         print("Failure! Could not load your file to JSON with error", e)  
 
