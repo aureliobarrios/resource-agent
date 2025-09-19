@@ -321,7 +321,11 @@ with gr.Blocks() as demo:
                         #load text to json
                         json_response = json.loads(json_text)
                     except Exception as e:
-                        print("Failure! Could not load your file to JSON with error", e)  
+                        print("Failure! Could not load your file to JSON with error", e)
+                try:
+                    curr_keys = json_response.keys()
+                except Exception as e:
+                    print("did not work:", e)
 
         return history
     
