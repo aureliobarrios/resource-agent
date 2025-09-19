@@ -337,6 +337,17 @@ with gr.Blocks() as demo:
                     elif "hard_query" in curr_keys:
                         out_json = extract_learning_info(**json_response)
                         print(f"Success! Succesfully load JSON using arguments")
+                    elif "properties" in curr_keys:
+                        out_json = extract_learning_info(**json_response["properties"])
+                        print(f"Success! Succesfully load JSON using properties")
+                    else:
+                        for key in curr_keys:
+                            if "hard_query" in json_response[key].keys():
+                                print(f"Success! Succesfully load JSON using search")
+                                out_json = extract_learning_info(**json_response[key])
+                            else:
+                                out_json = None
+                                print(f"Failure! Could not process JSON keys")
                 except Exception as e:
                     print("did not work:", e)
 
