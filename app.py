@@ -349,7 +349,9 @@ with gr.Blocks() as demo:
                                 out_json = None
                                 print(f"Failure! Could not process JSON keys")
                 except Exception as e:
-                    print("did not work:", e)
+                    print(f"Failure! Could not process JSON keys with error", e)
+        if out_json:
+            print("Succesful tool call")
 
         return history
     
