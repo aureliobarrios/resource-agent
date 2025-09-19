@@ -353,7 +353,27 @@ with gr.Blocks() as demo:
         if out_json:
             #handle summary based on build type
             if build_type == "Learning Path":
-                print("Need to build prompt")
+                #get the difficulty chosen
+                selected_difficulty = difficulty.lower()
+                #start building out summary prompt
+                summary_prompt = f'''
+                I would like you to respond like you are an instructor summarizing to a student. Please avoid drawn out responses, keep it concise and to the point.
+                Summarize the topic that the student is learning in 3 sentences. Begin your response with: In your learning path you must learn ...
+
+                Topic: {out_json[selected_difficulty]["description"]}
+                '''
+                #get the index of current level
+                difficulty_index = list(out_json.keys()).index(selected_difficulty)
+                #get the previous levels empty list if beginner level
+                prev_levels = list(out_json.keys())[:difficulty_index]
+                #loop through previous levels
+                if prev_levels:
+                    #add assumptions prompt
+                    summary_prompt = summary_prompt + "\nAlso add a couple of sentences summarizing each of the assumptions mentioned below that the student should already know. Begin this portion of the response with: This learning path assumes you know ...\n"
+                    #loop through previous level
+                    for level in prev_levels:
+                        #add assumption prompt for previous level
+                        summary_prompt = summary_prompt + f"\nAssuming the student has already learned: {out_json[level]["description"]}"    
             else:
                 #prompt to summarize entire process
                 summary_prompt = f'''
