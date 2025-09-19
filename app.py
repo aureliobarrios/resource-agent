@@ -323,7 +323,20 @@ with gr.Blocks() as demo:
                     except Exception as e:
                         print("Failure! Could not load your file to JSON with error", e)
                 try:
+                    #get the current keys of json file
                     curr_keys = json_response.keys()
+                    if "tool_calls" in curr_keys:
+                        if "parameters" in json_response["tool_calls"][0].keys():
+                            out_json = extract_learning_info(**json_response["tool_calls"][0]["parameters"])
+                        elif "function" in json_response["tool_calls"][0].keys():
+                            out_json = extract_learning_info(**json_response["tool_calls"][0]["function"]["parameters"])
+                        print(f"Success! Succesfully load JSON using tool_calls")
+                    elif "parameters" in curr_keys:
+                        out_json = extract_learning_info(**json_response["parameters"])
+                        print(f"Success! Succesfully load JSON using parameters")
+                    elif "hard_query" in curr_keys:
+                        out_json = extract_learning_info(**json_response)
+                        print(f"Success! Succesfully load JSON using arguments")
                 except Exception as e:
                     print("did not work:", e)
 
