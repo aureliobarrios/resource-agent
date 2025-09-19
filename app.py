@@ -297,7 +297,22 @@ with gr.Blocks() as demo:
                         char_index = 0
                         #loop through every character in format string
                         for char in json_text:
-                            print(char)
+                            if char == "}" or char == "]":
+                                if brackets[-1] != bracket_map[char]:
+                                    #then we must add new bracket
+                                    while brackets[-1] != bracket_map[char]:
+                                        #add new bracket and remove
+                                        json_text = json_text[0:char_index] + inverse_map[brackets[-1]] + json_text[char_index:]
+                                        brackets = brackets[:-1]
+                                        # print(brackets)
+                                    brackets = brackets[:-1]
+                                else:
+                                    #eliminate brackets
+                                    brackets = brackets[:-1]
+                            elif char == "{" or char == "[":
+                                brackets.append(char)
+                            #increment index
+                            char_index += 1
                     except Exception as e:
                         print("Failure! Could not load your file to JSON with error", e)  
 
