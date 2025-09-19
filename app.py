@@ -277,7 +277,16 @@ with gr.Blocks() as demo:
                 #get end index of JSON file
                 end_index = len(content) - min([i for i in [content[::-1].find("}"), content[::-1].find("]")] if i >= 0])
                 #get the entire JSON text
-                json_text = content[start_index:end_index]     
+                json_text = content[start_index:end_index]
+
+                try:
+                    #load text to json
+                    json_response = json.loads(json_text)
+                except Exception as e:
+                    try:
+                        print("Success!")
+                    except Exception as e:
+                        print("Failure! Could not load your file to JSON with error", e)  
 
         return history
     
