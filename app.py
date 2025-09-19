@@ -351,8 +351,17 @@ with gr.Blocks() as demo:
                 except Exception as e:
                     print(f"Failure! Could not process JSON keys with error", e)
         if out_json:
-            print("Succesful tool call")
+            #handle summary based on build type
+            if build_type == "Learning Path":
+                print("Need to build prompt")
+            else:
+                #prompt to summarize entire process
+                summary_prompt = f'''
+                I would like you to respond like you are an instructor summarizing to a student. Please avoid drawn out responses, keep it concise and to the point.
+                Summarize what the student is learning in 4 sentences. Begin your response with: In your learning path you must learn ...
 
+                {learning_path_text}
+                '''
         return history
     
     def clear_handle(history):
